@@ -2,11 +2,9 @@
 
 ## Project Overview
 
-**Project Title**: Retail Sales Analysis  
-**Level**: Beginner  
-**Database**: `p1_retail_db`
+**Project Title**: Retail Sales Data Analysis Using SQL
 
-This project is designed to demonstrate SQL skills and techniques typically used by data analysts to explore, clean, and analyze retail sales data. The project involves setting up a retail sales database, performing exploratory data analysis (EDA), and answering specific business questions through SQL queries. This project is ideal for those who are starting their journey in data analysis and want to build a solid foundation in SQL.
+This project showcases essential SQL skills and techniques used by data analysts to explore, clean, and analyze retail sales data. Through this project, I have simulated a real-world retail scenario where raw sales data is transformed into meaningful insights to help drive business decisions. The project involves setting up a retail sales database and performing Exploratory Data Analysis (EDA). Various SQL queries are employed to clean the data, extract valuable insights, and answer specific business questions.
 
 ## Objectives
 
@@ -19,26 +17,36 @@ This project is designed to demonstrate SQL skills and techniques typically used
 
 ### 1. Database Setup
 
-- **Database Creation**: The project starts by creating a database named `p1_retail_db`.
-- **Table Creation**: A table named `retail_sales` is created to store the sales data. The table structure includes columns for transaction ID, sale date, sale time, customer ID, gender, age, product category, quantity sold, price per unit, cost of goods sold (COGS), and total sale amount.
+- **Database Creation**: The project starts by creating a database named `Project`.
+- **Table Creation**: I have imported CSV data into MySQL. The table structure includes columns for transaction ID, sale date, sale time, customer ID, gender, age, product category, quantity sold, price per unit, cost of goods sold (COGS), and total sale amount. I have modified the column names and data types as required.
 
 ```sql
-CREATE DATABASE p1_retail_db;
+create database project;
 
-CREATE TABLE retail_sales
-(
-    transactions_id INT PRIMARY KEY,
-    sale_date DATE,	
-    sale_time TIME,
-    customer_id INT,	
-    gender VARCHAR(10),
-    age INT,
-    category VARCHAR(35),
-    quantity INT,
-    price_per_unit FLOAT,	
-    cogs FLOAT,
-    total_sale FLOAT
-);
+use project;
+
+select * from retail;
+
+ALTER TABLE retail
+ADD PRIMARY KEY (transactions_id);
+
+ALTER TABLE retail
+MODIFY price_per_unit float;
+
+ALTER TABLE retail
+MODIFY cogs float;
+
+ALTER TABLE retail
+MODIFY total_sale float;
+
+ALTER TABLE retail
+CHANGE ï»¿transactions_id transactions_id INT;
+
+ALTER TABLE retail
+CHANGE quantiy quantity INT;
+
+DESCRIBE retail;
+
 ```
 
 ### 2. Data Exploration & Cleaning
@@ -49,17 +57,17 @@ CREATE TABLE retail_sales
 - **Null Value Check**: Check for any null values in the dataset and delete records with missing data.
 
 ```sql
-SELECT COUNT(*) FROM retail_sales;
-SELECT COUNT(DISTINCT customer_id) FROM retail_sales;
-SELECT DISTINCT category FROM retail_sales;
+SELECT count(*) from retail;
+SELECT COUNT(DISTINCT Customer_id) as total_Customer FROM retail;;
+SELECT COUNT(DISTINCT Customer_id) as total_Customer FROM retail;
 
-SELECT * FROM retail_sales
+SELECT * FROM retail
 WHERE 
     sale_date IS NULL OR sale_time IS NULL OR customer_id IS NULL OR 
     gender IS NULL OR age IS NULL OR category IS NULL OR 
     quantity IS NULL OR price_per_unit IS NULL OR cogs IS NULL;
 
-DELETE FROM retail_sales
+DELETE FROM retail
 WHERE 
     sale_date IS NULL OR sale_time IS NULL OR customer_id IS NULL OR 
     gender IS NULL OR age IS NULL OR category IS NULL OR 
